@@ -30,4 +30,4 @@ Work in Progress
 
 ## Credits
 
-Based on [pynvimExample](https://github.com/jeff-dh/pynvimExample) [@jeff-dh](https://github.com/jeff-dh)
+Based on [pynvimExample](https://github.com/jeff-dh/pynvimExample) by [@jeff-dh](https://github.com/jeff-dh)
