@@ -28,14 +28,14 @@ packer.startup(function(use)
     -- Packer can manage itself
     use('wbthomason/packer.nvim')
 
-    use({'/local/luebeck/Programming/pynvimExample', run=":UpdateRemotePlugins"})
+    use({'/local/luebeck/Programming/vscode_json.nvim', run=":UpdateRemotePlugins"})
 
     if install_plugins then
         packer.sync()
     end
 end)
 
-require('pynvimExample').setup({
+require('vscode_json').setup({
     height = 20
 })
 
