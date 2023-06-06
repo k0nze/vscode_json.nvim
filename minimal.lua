@@ -1,3 +1,9 @@
+-- function that returns the diretory path to the current lua script
+function script_path()
+    local str = debug.getinfo(2, "S").source:sub(2)
+    return str:match("(.*/)")
+end
+
 -- ignore default config and plugins
 vim.opt.runtimepath:remove(vim.fn.expand('~/.config/nvim'))
 vim.opt.packpath:remove(vim.fn.expand('~/.local/share/nvim/site'))
@@ -28,14 +34,14 @@ packer.startup(function(use)
     -- Packer can manage itself
     use('wbthomason/packer.nvim')
 
-    use({'/local/luebeck/Programming/vscode_json.nvim', run=":UpdateRemotePlugins"})
+    use({script_path(), run=":UpdateRemotePlugins"})
 
     if install_plugins then
         packer.sync()
     end
 end)
 
-require('vscode_json').setup({
-    height = 20
-})
+print(script_path())
+
+require('vscode_json').setup()
 
