@@ -9,7 +9,8 @@
 			"type": "python",
 			"request": "launch",
 			"module": "hello",
-			"justMyCode": true
+			"justMyCode": true,
+            "args": []
 		}
 	]
 }
