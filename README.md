@@ -28,6 +28,15 @@ require('k0nze/vscode_json.nvim').setup()
 
 Work in Progress
 
+## Development
+
+```
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+pre-commit install
+```
+
 ## Credits
 
 Based on [pynvimExample](https://github.com/jeff-dh/pynvimExample) by [@jeff-dh](https://github.com/jeff-dh)
