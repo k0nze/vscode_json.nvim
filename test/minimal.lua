@@ -2,9 +2,9 @@
 function plugin_path()
     local str = debug.getinfo(2, "S").source:sub(2)
     str = str:match("(.*/)")
-    local r_str = string.reverse(str) 
+    local r_str = string.reverse(str)
     r_str = string.gsub(r_str, "/tset/", "", 1)
-    str = string.reverse(r_str) 
+    str = string.reverse(r_str)
     return str
 end
 
@@ -38,7 +38,9 @@ packer.startup(function(use)
     -- Packer can manage itself
     use('wbthomason/packer.nvim')
 
-    use({plugin_path(), run=":UpdateRemotePlugins"})
+    use({plugin_path(), requires = {
+        {"akinsho/toggleterm.nvim"}
+    }, run=":UpdateRemotePlugins"})
 
     if install_plugins then
         packer.sync()
@@ -46,4 +48,3 @@ packer.startup(function(use)
 end)
 
 require('vscode_json').setup()
-
