@@ -1,6 +1,8 @@
 import json
 import re
 
+from typing import Optional
+
 from .launch_configuration import (
     LaunchConfiguration,
     LaunchConfigurationRequest,
@@ -48,5 +50,16 @@ class LaunchJSON:
         if name in self.configurations.keys():
             self.selected_configuration_name = name
 
-    def run(self, configuration_name: str) -> None:
-        ...
+    def get_selected_configuration_run_command(self) -> Optional[str]:
+        cmd = None
+        if self.selected_configuration_name is not None:
+
+            selected_configuration = self.configurations[
+                self.selected_configuration_name
+            ]
+
+            # check if selected configuration is of type python
+            if selected_configuration.type == LaunchConfigurationType.PYTHON:
+                cmd = f"python -m {selected_configuration.module} {' '.join(selected_configuration.args)}"
+
+        return cmd

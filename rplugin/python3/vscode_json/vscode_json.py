@@ -4,6 +4,7 @@ import os
 from pynvim import Nvim
 from .launch_json import LaunchJSON
 
+
 @pynvim.plugin
 class VSCodeJSON:
     def __init__(self, nvim: Nvim) -> None:
@@ -54,22 +55,28 @@ class VSCodeJSON:
 
             # print all launch configuration names in scratch buffer
             self.nvim.api.buf_set_lines(
-                scratch_buffer, 0, -1, False, list(self.launch_json.configurations.keys())
+                scratch_buffer,
+                0,
+                -1,
+                False,
+                list(self.launch_json.configurations.keys()),
             )
-           
+
             # highlight current line
             self.nvim.api.command("setlocal cursorline")
 
             # remap enter in scratch buffer to call VSCodeJSONSelectLaunchConfiguration and close buffer
-            self.nvim.api.command("nnoremap <buffer> <CR> :call VSCodeJSONSelectLaunchConfiguration(getline('.'))<CR>:q!<CR>")
+            self.nvim.api.command(
+                "nnoremap <buffer> <CR> :call VSCodeJSONSelectLaunchConfiguration(getline('.'))<CR>:q!<CR>"
+            )
 
     @pynvim.function("VSCodeJSONSelectLaunchConfiguration")
     def test(self, args) -> None:
-        # check if args has one element 
+        # check if args has one element
         if len(args) == 1:
             self.launch_json.select_configuration(args[0])
 
     @pynvim.command("VSCodeJSONRun", nargs="0")
     def run(self, _):
         if self.launch_json is not None:
-            self.nvim.current.line = f"selected configuration '{self.launch_json.selected_configuration_name}' ... "
+            self.nvim.current.line = f"run cmd: '{self.launch_json.get_selected_configuration_run_command()}'"
