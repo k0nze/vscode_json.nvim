@@ -47,12 +47,24 @@ packer.startup(function(use)
     end
 end)
 
-require('vscode_json').setup({
+-- set leader key
+vim.g.mapleader = " "
+
+local status, vscode_json = pcall(require, "vscode_json")
+if not status then
+    return
+end
+
+vscode_json.setup({
     selection_buffer_pos = "bottom"
 })
 
--- read .vscode/ at startup
-vim.api.nvim_create_autocmd({"VimEnter"}, {
-    pattern = {"*"},
-    callback = function() print("test") end
-})
+-- select launch configuration
+vim.keymap.set("n", "<leader>s", ":call VSCodeJSONListLaunchConfigurations()<CR>")
+
+-- run selected launch configuration
+vim.keymap.set("n", "<leader>r", ":VSCodeJSONRun<CR>")
+
+vim.keymap.set("n", "<leader>t", ":ToggleTerm<CR>")
+
+-- TODO autocmd on change .vscode dir trigger re-reading of .vscode

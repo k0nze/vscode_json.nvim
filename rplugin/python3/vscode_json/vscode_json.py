@@ -15,7 +15,11 @@ class VSCodeJSON:
         self.launch_json_path = None
         self.launch_json = None
 
+        # update default config with lua setup
         self.config_from_lua()
+
+        # read .vscode/launch.json if it exists
+        self.read_launch_json()
 
     def config_from_lua(self):
         self.config = {"selection_buffer_pos": "top"}
