@@ -1,7 +1,11 @@
 -- function that returns the diretory path to the current lua script
-function script_path()
+function plugin_path()
     local str = debug.getinfo(2, "S").source:sub(2)
-    return str:match("(.*/)")
+    str = str:match("(.*/)")
+    local r_str = string.reverse(str) 
+    r_str = string.gsub(r_str, "/tset/", "", 1)
+    str = string.reverse(r_str) 
+    return str
 end
 
 -- ignore default config and plugins
@@ -34,14 +38,12 @@ packer.startup(function(use)
     -- Packer can manage itself
     use('wbthomason/packer.nvim')
 
-    use({script_path(), run=":UpdateRemotePlugins"})
+    use({plugin_path(), run=":UpdateRemotePlugins"})
 
     if install_plugins then
         packer.sync()
     end
 end)
-
-print(script_path())
 
 require('vscode_json').setup()
 
