@@ -40,3 +40,8 @@ pre-commit install
 ## Credits
 
 Based on [pynvimExample](https://github.com/jeff-dh/pynvimExample) by [@jeff-dh](https://github.com/jeff-dh)
+
+## TODOs
+- [ ] make selection buffer for launch configuration smaller
+- [ ] check and read .vscode/launch.json at startup
+- [ ] re-read .vscode/launch.json on change
