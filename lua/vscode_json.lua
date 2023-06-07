@@ -11,6 +11,7 @@ The pynvim rplugin module can fetch the config like this:
 local config = {}
 
 local function setup(c)
+    require("toggleterm").setup()
     config = c
 end
 

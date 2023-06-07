@@ -79,4 +79,6 @@ class VSCodeJSON:
     @pynvim.command("VSCodeJSONRun", nargs="0")
     def run(self, _):
         if self.launch_json is not None:
-            self.nvim.current.line = f"run cmd: '{self.launch_json.get_selected_configuration_run_command()}'"
+            self.nvim.api.command(
+                f'TermExec cmd="{self.launch_json.get_selected_configuration_run_command()}"'
+            )
