@@ -61,6 +61,7 @@ class VSCodeJSON:
     @pynvim.function("VSCodeJSONListLaunchConfigurations")
     def list_launch_json_configurations(self, _=None) -> None:
         if self.launch_json is not None:
+            self.launch_json.check_for_change()
 
             # list all launch configuration names in a scratch buffer in a split
             configuration_names = list(self.launch_json.configurations.keys())
@@ -108,6 +109,7 @@ class VSCodeJSON:
     @pynvim.command("VSCodeJSONRun", nargs="0")
     def run(self, _):
         if self.launch_json is not None:
+            self.launch_json.check_for_change()
             self.nvim.api.command(
                 f'TermExec cmd="{self.launch_json.get_selected_configuration_run_command()}"'
             )

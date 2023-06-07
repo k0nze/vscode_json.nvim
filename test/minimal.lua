@@ -65,6 +65,5 @@ vim.keymap.set("n", "<leader>s", ":call VSCodeJSONListLaunchConfigurations()<CR>
 -- run selected launch configuration
 vim.keymap.set("n", "<leader>r", ":VSCodeJSONRun<CR>")
 
+-- toggle terminal split
 vim.keymap.set("n", "<leader>t", ":ToggleTerm<CR>")
-
--- TODO autocmd on change .vscode dir trigger re-reading of .vscode
