@@ -15,6 +15,16 @@ class VSCodeJSON:
         self.launch_json_path = None
         self.launch_json = None
 
+        self.config_from_lua()
+
+    def config_from_lua(self):
+        self.config = {"selection_buffer_pos": "top"}
+
+        # fetch lua config from lua/vscode_json.lua
+        config = self.nvim.exec_lua("return require('vscode_json').getConfig()")
+
+        self.config.update(config)
+
     @pynvim.function("VSCodeJSONCheckDirExists")
     def vscode_dir_exists(self, _=None) -> bool:
         current_dir_path = self.nvim.command_output("pwd")
@@ -50,11 +60,16 @@ class VSCodeJSON:
 
             # list all launch configuration names in a scratch buffer in a split
             configuration_names = list(self.launch_json.configurations.keys())
-            self.nvim.api.command("split")
 
-            # resize buffer to the size of available configurations
+            if self.config["selection_buffer_pos"] == "bottom":
+                self.nvim.api.command("botright split")
+            else:
+                self.nvim.api.command("split")
+
+            # resize scratch buffer to the size of available configurations
             self.nvim.api.command(f"resize {len(configuration_names)}")
             self.nvim.api.command("wincmd l")
+
             scratch_buffer = self.nvim.api.create_buf(True, True)
             self.nvim.api.set_current_buf(scratch_buffer)
 
@@ -69,6 +84,11 @@ class VSCodeJSON:
 
             # highlight current line
             self.nvim.api.command("setlocal cursorline")
+
+            # rename scratch buffer
+            self.nvim.api.command(
+                f"file VSCode launch configurations from: {self.launch_json_path}"
+            )
 
             # remap enter in scratch buffer to call VSCodeJSONSelectLaunchConfiguration and close buffer
             self.nvim.api.command(

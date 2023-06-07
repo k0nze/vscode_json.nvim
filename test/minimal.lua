@@ -47,4 +47,6 @@ packer.startup(function(use)
     end
 end)
 
-require('vscode_json').setup()
+require('vscode_json').setup({
+    selection_buffer_pos = "bottom"
+})
