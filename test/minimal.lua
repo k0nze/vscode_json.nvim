@@ -50,3 +50,9 @@ end)
 require('vscode_json').setup({
     selection_buffer_pos = "bottom"
 })
+
+-- read .vscode/ at startup
+vim.api.nvim_create_autocmd({"VimEnter"}, {
+    pattern = {"*"},
+    callback = function() print("test") end
+})
