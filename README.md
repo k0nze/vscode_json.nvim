@@ -15,7 +15,7 @@ packer:
     'k0nze/vscode_json.nvim',
      requires = {
         {"akinsho/toggleterm.nvim"}
-     }
+     },
      run=':UpdateRemotePlugins'
  })
 ```
