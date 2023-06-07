@@ -55,4 +55,5 @@ pre-commit install
 Based on [pynvimExample](https://github.com/jeff-dh/pynvimExample) by [@jeff-dh](https://github.com/jeff-dh)
 
 ## TODOs
-- [ ] re-read .vscode/launch.json on change
+- [ ] load python .venv
+- [ ] python debugging
