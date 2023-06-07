@@ -47,8 +47,13 @@ class VSCodeJSON:
     @pynvim.function("VSCodeJSONListLaunchConfigurations")
     def list_launch_json_configurations(self, _=None) -> None:
         if self.launch_json is not None:
+
             # list all launch configuration names in a scratch buffer in a split
+            configuration_names = list(self.launch_json.configurations.keys())
             self.nvim.api.command("split")
+
+            # resize buffer to the size of available configurations
+            self.nvim.api.command(f"resize {len(configuration_names)}")
             self.nvim.api.command("wincmd l")
             scratch_buffer = self.nvim.api.create_buf(True, True)
             self.nvim.api.set_current_buf(scratch_buffer)
@@ -59,7 +64,7 @@ class VSCodeJSON:
                 0,
                 -1,
                 False,
-                list(self.launch_json.configurations.keys()),
+                configuration_names,
             )
 
             # highlight current line
