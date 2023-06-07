@@ -5,12 +5,29 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Python: Module",
+			"name": "Hello w/o args",
 			"type": "python",
 			"request": "launch",
 			"module": "hello",
 			"justMyCode": true,
             "args": []
+		},
+        {
+			"name": "Hello w/ World arg",
+			"type": "python",
+			"request": "launch",
+			"module": "hello",
+			"justMyCode": true,
+            "args": ["World"]
+		},
+        {
+			"name": "Hello w/ Foo Bar arg",
+			"type": "python",
+			"request": "launch",
+			"module": "hello",
+			"justMyCode": true,
+            "args": ["Foo", "Bar"]
 		}
+
 	]
 }
